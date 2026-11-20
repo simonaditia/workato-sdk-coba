@@ -30,7 +30,6 @@
         [
           { name: 'id', type: 'integer' },
           { name: 'name' },
-          { name: 'username' },
           { name: 'email' }
         ]
       end
