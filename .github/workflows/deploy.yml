@@ -1,0 +1,22 @@
+name: Deploy connector to Workato DEV
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+
+      - name: Push to Workato
+        env:
+          WORKATO_API_TOKEN: ${{ secrets.WORKATO_API_TOKEN }}
+          WORKATO_BASE_URL: ${{ secrets.WORKATO_BASE_URL }}
+        run: bundle exec workato push -n "${{ github.event.head_commit.message }}"
